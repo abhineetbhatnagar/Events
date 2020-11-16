@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;  
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Events.Tenancy.Services.Infra.DB.Service
 {
@@ -21,9 +22,9 @@ namespace Events.Tenancy.Services.Infra.DB.Service
         }
 
         // Method To Add Participants To An Event
-        public void AddParticipants(Participants participantsData) {
-            _participants.InsertOne(participantsData);
-
+        public async Task<bool> AddParticipants(Participants participantsData) {
+            await _participants.InsertOneAsync(participantsData);    
+            return true;        
         }
 
         // Method to fetch all participants for an event

@@ -1,4 +1,7 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Events.Notification.Services.Infra.DB.Config;
+using Events.Notification.Services.Infra.DB.Service;
+using Events.Notification.Services.Infra.Messaging.Config;
+using Events.Notification.Services.Infra.Messaging.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -6,9 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Text;
+using Microsoft.Extensions.Options;
 
 namespace Events.Notification
 {
@@ -24,7 +25,6 @@ namespace Events.Notification
             var builder = new ConfigurationBuilder()
                             .SetBasePath(hostEnvironment.ContentRootPath)
                             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                            .AddJsonFile($"appsettings.{hostEnvironment.EnvironmentName}.json", optional: true)
                             .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
@@ -32,28 +32,20 @@ namespace Events.Notification
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(AuthScheme =>
-            {
-                AuthScheme.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                AuthScheme.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(options =>
-            {
-                options.RequireHttpsMetadata = false;
-                options.SaveToken = true;
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = Configuration["JWT:Issuer"],
-                    ValidAudience = Configuration["JWT:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"])),
-                    ClockSkew = TimeSpan.Zero
-                };
-            });
             services.AddControllers();
+            // Pass configuration from appsettings to Mongo DB service Configuration
+            services.Configure<DatabaseConfig>(Configuration.GetSection("MongoDB"));
+            services.AddSingleton<IDatabaseConfig>(sp => sp.GetRequiredService<IOptions<DatabaseConfig>>().Value);
+            
+            // Pass configuration from appsettings to RabbitMQ service Configuration
+            services.Configure<EventMessagingConfig>(Configuration.GetSection("RabbitMq"));
+            services.AddSingleton<IEventMessagingConfig>(sp => sp.GetRequiredService<IOptions<EventMessagingConfig>>().Value);
+            
+            // Inject Notification DB Service
+            services.AddSingleton<IEmailNotificationsDbService, EmailNotificationsDbService>();
+
+            services.AddHostedService<EventConsumerService>();  
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,9 +66,7 @@ namespace Events.Notification
                 }
             );
 
-            app.UseRouting();
-
-            app.UseAuthorization();
+            app.UseRouting();            
 
             app.UseEndpoints(endpoints =>
             {

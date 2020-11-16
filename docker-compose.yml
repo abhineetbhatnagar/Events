@@ -11,7 +11,7 @@ services:
     ports:
       - 27017:27017
     volumes: 
-      - mongodb_data:/data/mongodb
+      - ./mongo-volume:/data/mongodb
 
   mongo-express:
     image: mongo-express
@@ -23,7 +23,20 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: nopass123
     depends_on:
       - mongo
-  
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=password123
+    volumes:
+      - ./rabbitmq/etc/:/data/rabbitmq/etc
+      - ./rabbitmq/data/:/data/rabbitmq/data
+      - ./rabbitmq/logs/:/data/rabbitmq/logs
+
   tenancyapi:
     image: tenancyapi
     restart: unless-stopped
@@ -78,8 +91,3 @@ services:
       - tenancyapi
       - managerapi
       - notificationsapi
-
-volumes:
-  mongodb_data:
-    external:
-      name: mongodb-persistent-data

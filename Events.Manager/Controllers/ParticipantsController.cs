@@ -1,11 +1,6 @@
 ﻿using Events.Manager.Services.Core;
 using Events.Manager.Services.Domain.Entities;
-using Events.Manager.Services.Domain.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Events.Manager.Controllers
@@ -27,11 +22,11 @@ namespace Events.Manager.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("add-participants")]
-        public IActionResult AddParticipants([FromBody] Participants InputModel) {
-            _participantsService.AddParticipants(InputModel);
+        public async Task<IActionResult> AddParticipants([FromBody] Participants InputModel) {
+            await _participantsService.AddParticipants(InputModel);
             return Ok();
         }
-
+        
         /// <summary>
         /// API to fetch all participants for an event
         /// </summary>

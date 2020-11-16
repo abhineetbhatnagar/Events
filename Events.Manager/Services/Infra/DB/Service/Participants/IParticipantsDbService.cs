@@ -7,7 +7,7 @@ namespace Events.Tenancy.Services.Infra.DB.Service
     public interface IParticipantsDbService
     {
         // Method To Add Participants To An Event
-        void AddParticipants(Participants participantsData);
+        Task<bool> AddParticipants(Participants participantsData);
 
         // Method to fetch all participants for an event
         IEnumerable<Participants> FetchParticipantsForEvent(string eventId);

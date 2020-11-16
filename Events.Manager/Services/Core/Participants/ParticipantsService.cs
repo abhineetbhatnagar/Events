@@ -4,21 +4,31 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Events.Tenancy.Services.Infra.Messaging.Service;
 
 namespace Events.Manager.Services.Core
 {
     public class ParticipantsService : IParticipantsService
     {
         private readonly IParticipantsDbService _participantsDbService;
-        public ParticipantsService(IParticipantsDbService participantsDbService)
+        private readonly IEventMessagingService _eventMessager;
+        public ParticipantsService(IParticipantsDbService participantsDbService, IEventMessagingService eventMessager)
         {
             this._participantsDbService = participantsDbService;
+            this._eventMessager = eventMessager;
         }
 
         // Method To Add Participants To An Event
-        public void AddParticipants(Participants participantsData)
+        public async Task AddParticipants(Participants participantsData)
         {
-            _participantsDbService.AddParticipants(participantsData);
+            if(await _participantsDbService.AddParticipants(participantsData)){
+                foreach(var participant in participantsData.ParticipantsData){
+                    await _eventMessager.NotifyParticipant(new Notification{
+                        Email = participant.Email,
+                        Notification_Text = "You have been invited to attend an event. The event ID is: - ." + participantsData.Event_Id
+                    });
+                }
+            }
         }
 
         // Method to fetch all participants for an event

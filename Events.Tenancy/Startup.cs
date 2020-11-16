@@ -1,14 +1,9 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Events.Tenancy.Services.Infra.DB.Config;
 using Events.Tenancy.Services.Core.Tenant;
 using Microsoft.Extensions.Options;
@@ -36,8 +31,7 @@ namespace Events.Tenancy
 
             var builder = new ConfigurationBuilder()
                             .SetBasePath(hostEnvironment.ContentRootPath)
-                            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                            .AddJsonFile($"appsettings.{hostEnvironment.EnvironmentName}.json", optional: true)
+                            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)                            
                             .AddEnvironmentVariables();
             Configuration = builder.Build();
         }

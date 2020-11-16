@@ -2,7 +2,9 @@ using Events.Manager.Services.Core;
 using Events.Manager.Services.Infra.DB.Config;
 using Events.Manager.Services.Infra.Encryption.Config;
 using Events.Manager.Services.Infra.Encryption.Service;
+using Events.Manager.Services.Infra.Messaging.Config;
 using Events.Tenancy.Services.Infra.DB.Service;
+using Events.Tenancy.Services.Infra.Messaging.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -29,8 +31,7 @@ namespace Events.Manager
 
             var builder = new ConfigurationBuilder()
                             .SetBasePath(hostEnvironment.ContentRootPath)
-                            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                            .AddJsonFile($"appsettings.{hostEnvironment.EnvironmentName}.json", optional: true)
+                            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)                            
                             .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
@@ -69,15 +70,24 @@ namespace Events.Manager
             services.Configure<EncryptionConfig>(Configuration.GetSection("Encryption"));
             services.AddSingleton<IEncryptionConfig>(sp => sp.GetRequiredService<IOptions<EncryptionConfig>>().Value);
 
+            // Pass configuration from appsettings to RabbitMQ service Configuration
+            services.Configure<EventMessagingConfig>(Configuration.GetSection("RabbitMq"));
+            services.AddSingleton<IEventMessagingConfig>(sp => sp.GetRequiredService<IOptions<EventMessagingConfig>>().Value);
+
 
             // Inject Events & Participation Service Dependencies
             services.AddSingleton<IEventsService, EventsService>();
             services.AddSingleton<IParticipantsService, ParticipantsService>();
-
+            
+            // Inject Events & Participation DB Service Dependencies
             services.AddSingleton<IEventsDbService, EventsDbService>();
             services.AddSingleton<IParticipantsDbService, ParticipantsDbService>();
-
+            
+            // Inject Encryption Service
             services.AddSingleton<IEncryptionService, EncryptionService>();
+
+            // Inject Messaging Service
+            services.AddSingleton<IEventMessagingService, EventMessagingService>();
 
         }
 
