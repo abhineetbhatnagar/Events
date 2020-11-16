@@ -1,4 +1,4 @@
-namespace Events.Tenancy.Services.Domain
+namespace Events.Tenancy.Services.Domain.Entities
 {
     public class AuthServiceResponse{
 

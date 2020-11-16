@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Events.Tenancy.Services.Domain{
+namespace Events.Tenancy.Services.Domain.Models{
     public class LoginModel{
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide username.")]
         public string Username { get; set; }

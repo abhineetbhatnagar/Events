@@ -4,7 +4,7 @@ namespace Events.Tenancy.Services.Infra.JWT.Config
     {
         string Secret { get; set; }
         string Issuer { get; set; }
-        string Audiance { get; set; }
+        string Audience { get; set; }
         int ExpiryInMinutes { get; set; }
     }
 

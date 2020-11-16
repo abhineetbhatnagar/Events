@@ -26,6 +26,7 @@ namespace Events.APIGateway
             var builder = new ConfigurationBuilder()
                             .SetBasePath(hostEnvironment.ContentRootPath)
                             .AddJsonFile($"ocelot.json", optional: false, reloadOnChange: true)
+                            .AddJsonFile($"ocelot.{hostEnvironment.EnvironmentName}.json", optional: false, reloadOnChange: true)
                             .AddEnvironmentVariables();
             Configuration = builder.Build();
         }

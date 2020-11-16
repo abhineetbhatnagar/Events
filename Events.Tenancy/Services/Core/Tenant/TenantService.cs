@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Security.Claims;
-using Events.Tenancy.Services.Domain;
+using Events.Tenancy.Services.Domain.Models;
+using Events.Tenancy.Services.Domain.Entities;
 using Events.Tenancy.Services.Infra.DB.Service;
 using Events.Tenancy.Services.Infra.Encryption.Service;
 using Events.Tenancy.Services.Infra.JWT;

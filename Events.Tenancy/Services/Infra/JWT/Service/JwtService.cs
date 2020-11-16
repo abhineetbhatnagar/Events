@@ -24,7 +24,7 @@ namespace Events.Tenancy.Services.Infra.JWT{
                 Expires = DateTime.Now.ToUniversalTime().AddMinutes(expiryMinutes),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
                 Issuer = _jwtSettings.Issuer,
-                Audience = _jwtSettings.Audiance,
+                Audience = _jwtSettings.Audience,
                 IssuedAt = DateTime.UtcNow
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);

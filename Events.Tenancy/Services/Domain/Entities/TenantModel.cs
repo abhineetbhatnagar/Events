@@ -1,7 +1,7 @@
 using MongoDB.Bson;  
 using MongoDB.Bson.Serialization.Attributes;  
 
-namespace Events.Tenancy.Services.Domain
+namespace Events.Tenancy.Services.Domain.Entities
 {
     public class TenantModel
     {
@@ -14,7 +14,7 @@ namespace Events.Tenancy.Services.Domain
         public string Password { get; set; }  
   
         public string Name { get; set; }  
-  
+        
         public string Email { get; set; } 
     }
 }

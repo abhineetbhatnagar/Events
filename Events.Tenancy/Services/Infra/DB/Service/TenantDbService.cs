@@ -1,6 +1,6 @@
 using MongoDB.Driver;  
 using Events.Tenancy.Services.Infra.DB.Config;  
-using Events.Tenancy.Services.Domain;
+using Events.Tenancy.Services.Domain.Entities;
 using System.Collections.Generic;  
 using System.Linq;
 

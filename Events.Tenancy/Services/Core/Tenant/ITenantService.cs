@@ -1,4 +1,5 @@
-using Events.Tenancy.Services.Domain;
+using Events.Tenancy.Services.Domain.Models;
+using Events.Tenancy.Services.Domain.Entities;
 
 
 namespace Events.Tenancy.Services.Core.Tenant{

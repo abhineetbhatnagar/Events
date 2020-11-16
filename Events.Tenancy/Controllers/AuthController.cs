@@ -1,11 +1,7 @@
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Events.Tenancy.Services.Core.Tenant;
-using Events.Tenancy.Services.Domain;
+using Events.Tenancy.Services.Domain.Entities;
+using Events.Tenancy.Services.Domain.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Events.Tenancy.Controllers
 {

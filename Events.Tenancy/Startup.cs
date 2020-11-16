@@ -37,6 +37,7 @@ namespace Events.Tenancy
             var builder = new ConfigurationBuilder()
                             .SetBasePath(hostEnvironment.ContentRootPath)
                             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                            .AddJsonFile($"appsettings.{hostEnvironment.EnvironmentName}.json", optional: true)
                             .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
@@ -66,13 +67,20 @@ namespace Events.Tenancy
                 };
             });
             services.AddControllers();
+
+            // Pass configuration from appsettings to Mongo DB service Configuration
             services.Configure<DatabaseConfig>(Configuration.GetSection("MongoDB"));
             services.AddSingleton<IDatabaseConfig>(sp => sp.GetRequiredService<IOptions<DatabaseConfig>>().Value);
+
+            // Pass configuration from appsettings to JWT service Configuration
             services.Configure<JwtConfig>(Configuration.GetSection("JWT"));
-            services.AddSingleton<IJwtConfig>(sp => sp.GetRequiredService<IOptions<JwtConfig>>().Value);            
+            services.AddSingleton<IJwtConfig>(sp => sp.GetRequiredService<IOptions<JwtConfig>>().Value);
+
+            // Pass configuration from appsettings to Encryption service Configuration
             services.Configure<EncryptionConfig>(Configuration.GetSection("Encryption"));
             services.AddSingleton<IEncryptionConfig>(sp => sp.GetRequiredService<IOptions<EncryptionConfig>>().Value);
 
+            // Inject Tenant, DB, Jwt & Encryption Service Dependencies
             services.AddScoped<ITenantService, TenantService>();
             services.AddScoped<ITenantDbService, TenantDbService>();
             services.AddScoped<IJwtService, JwtService>();
@@ -98,7 +106,7 @@ namespace Events.Tenancy
             );
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
