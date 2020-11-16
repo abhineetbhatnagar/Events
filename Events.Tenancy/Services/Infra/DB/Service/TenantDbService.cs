@@ -15,7 +15,14 @@ namespace Events.Tenancy.Services.Infra.DB.Service
             var database = client.GetDatabase(settings.DatabaseName);
             _tenants = database.GetCollection<TenantModel>(settings.TenantCollectionName);
         }
-        public TenantModel Get(string username) =>
-            _tenants.Find<TenantModel>(tenant => tenant.Username == username).FirstOrDefault();
+
+        /// <summary>
+        /// Method to fetch user data from db
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        public TenantModel Get(string username) { 
+            return _tenants.Find<TenantModel>(tenant => tenant.Username == username).FirstOrDefault();
+        }
     }
 }

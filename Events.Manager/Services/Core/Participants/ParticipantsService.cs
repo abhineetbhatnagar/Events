@@ -15,12 +15,20 @@ namespace Events.Manager.Services.Core
             this._participantsDbService = participantsDbService;
         }
 
-        // Method To Add Participants To An Event
+        /// <summary>
+        /// Method To Add Participants To An Event
+        /// </summary>
+        /// <param name="participantsData"></param>
         public void AddParticipants(Participants participantsData)
         {
             _participantsDbService.AddParticipants(participantsData);
         }
 
+        /// <summary>
+        /// Method to fetch all participants for an event
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <returns></returns>
         public IEnumerable<Participant> FetchParticipantsForEvent(string eventId) {
             List<Participant> listOfParticipants = new List<Participant>();
             IEnumerable<Participants> _allParticipantDocuments = _participantsDbService.FetchParticipantsForEvent(eventId);

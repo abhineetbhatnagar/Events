@@ -16,7 +16,11 @@ namespace Events.Manager.Services.Core
             this._encryptionService = encryptionService;
         }
 
-        // Method To Create New Event
+        /// <summary>
+        /// Method To Create New Event
+        /// </summary>
+        /// <param name="eventData"></param>
+        /// <returns></returns>
         public string CreateEvent(Event eventData)
         {
             // Decrypt event owner's id
@@ -24,26 +28,41 @@ namespace Events.Manager.Services.Core
             return _eventsDbService.CreateEvent(eventData);
         }
 
-        // Method To Fetch Event By Its ID
+        /// <summary>
+        /// Method To Fetch Event By Its ID
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <returns></returns>
         public Event GetEventById(string eventId)
         {
             return _eventsDbService.GetEventById(eventId);
         }
 
-        // Method To Fetch List of All Events
+        /// <summary>
+        /// Method To Fetch List of All Events
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Event> GetAllEvents()
         {
             return _eventsDbService.GetAllEvents();
         }
 
-        // Method To Fetch List of All Events For a Particular Owner
+        /// <summary>
+        /// Method To Fetch List of All Events For a Particular Owner
+        /// </summary>
+        /// <param name="eventOwner"></param>
+        /// <returns></returns>
         public IEnumerable<Event> GetEventsForOwner(string eventOwner)
         {
             // Decrypt event owner's id & send to DB Service
             return _eventsDbService.GetEventsForOwner(_encryptionService.Decrypt(eventOwner));
         }
 
-        // Method To Update An Event
+        /// <summary>
+        /// Method To Update An Event
+        /// </summary>
+        /// <param name="eventData"></param>
+        /// <returns></returns>
         public bool UpdateEvent(Event eventData)
         {
             // Decrypt event owner's id
@@ -51,7 +70,11 @@ namespace Events.Manager.Services.Core
             return _eventsDbService.UpdateEvent(eventData);
         }
 
-        // Method To Delete An Event
+        /// <summary>
+        /// Method To Delete An Event
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <returns></returns>
         public bool DeleteEvent(string eventId)
         {
             return _eventsDbService.DeleteEvent(eventId);

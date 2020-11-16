@@ -13,6 +13,11 @@ namespace Events.Manager.Services.Infra.Encryption.Service{
             this._encryptionIV = encryptionConfig.IV;
         }  
 
+        /// <summary>
+        /// Method to encrypt a plain string
+        /// </summary>
+        /// <param name="clearText"></param>
+        /// <returns></returns>
         public string Encrypt(string clearText)
         {
             var rj = new RijndaelManaged()
@@ -39,8 +44,12 @@ namespace Events.Manager.Services.Infra.Encryption.Service{
 
             return (Convert.ToBase64String(encrypted));
         }
-        
 
+        /// <summary>
+        /// Method to decrypt an encrypted string
+        /// </summary>
+        /// <param name="clearText"></param>
+        /// <returns></returns>
         public string Decrypt(string cipherTextstring)
         {
             string plaintext = string.Empty;

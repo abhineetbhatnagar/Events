@@ -20,6 +20,11 @@ namespace Events.Manager.Controllers
             this._participantsService = participantsService;
         }
 
+        /// <summary>
+        /// API to add participants to an event
+        /// </summary>
+        /// <param name="InputModel"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("add-participants")]
         public IActionResult AddParticipants([FromBody] Participants InputModel) {
@@ -27,6 +32,11 @@ namespace Events.Manager.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// API to fetch all participants for an event
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("fetch-event-participants/{id}")]
         public IActionResult FetchEventParticipants(string id)

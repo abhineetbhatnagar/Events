@@ -13,6 +13,13 @@ namespace Events.Tenancy.Services.Infra.JWT{
         public JwtService(IJwtConfig jwtSettings){
             this._jwtSettings = jwtSettings;
         }
+
+        /// <summary>
+        /// Method to generate JWT Token
+        /// </summary>
+        /// <param name="_Claims"></param>
+        /// <param name="expiryMin"></param>
+        /// <returns></returns>
         public string GenerateJwtToken(List<Claim> _Claims, double expiryMin = 0)
         {
             var tokenHandler = new JwtSecurityTokenHandler();

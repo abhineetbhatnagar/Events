@@ -18,7 +18,11 @@ namespace Events.Manager.Controllers
         public EventsController(IEventsService eventsService) {
             this._eventsService = eventsService;
         }
-
+        /// <summary>
+        /// API to create new event
+        /// </summary>
+        /// <param name="InputModel"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("create-event")]
         public IActionResult CreateEvent([FromBody] NewEventModel InputModel)
@@ -42,13 +46,21 @@ namespace Events.Manager.Controllers
             // Return successful response to client
             return Ok(_eventsService.CreateEvent(objEvent));
         }
-
+        /// <summary>
+        /// API to fetch all events
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("fetch-all-events")]
         public IActionResult FetchAllEvents() {
             return Ok(_eventsService.GetAllEvents());
         }
 
+        /// <summary>
+        /// API to fetch a particular event
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("fetch-event/{id}")]
         public IActionResult FetchEvent(string id)
@@ -56,6 +68,10 @@ namespace Events.Manager.Controllers
             return Ok(_eventsService.GetEventById(id));
         }
 
+        /// <summary>
+        /// API to fetch event for current owner
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("fetch-owners-event")]
         public IActionResult FetchOwnersEvent()
@@ -69,6 +85,11 @@ namespace Events.Manager.Controllers
             return Ok(_eventsService.GetEventsForOwner(tenant_id));
         }
 
+        /// <summary>
+        /// API to update an event
+        /// </summary>
+        /// <param name="InputModel"></param>
+        /// <returns></returns>
         [HttpPut]
         [Route("update-event")]
         public IActionResult UpdateEvent([FromBody]UpdateEventModel InputModel)
@@ -92,6 +113,11 @@ namespace Events.Manager.Controllers
             return Ok(_eventsService.UpdateEvent(objEvent));
         }
 
+        /// <summary>
+        /// API to delete an event
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete]
         [Route("delete-event/{id}")]
         public IActionResult DeleteEvent(string id)

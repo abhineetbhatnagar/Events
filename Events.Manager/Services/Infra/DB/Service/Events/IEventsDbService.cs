@@ -5,22 +5,45 @@ namespace Events.Tenancy.Services.Infra.DB.Service
 {
     public interface IEventsDbService
     {
-        // Method To Create New Event
+        /// <summary>
+        /// Method To Create New Event
+        /// </summary>
+        /// <param name="eventData"></param>
+        /// <returns></returns>
         string CreateEvent(Event eventData);
 
-        // Method To Fetch Event By Its ID
+        /// <summary>
+        /// Method To Fetch Event By Its ID
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <returns></returns>
         Event GetEventById(string eventId);
 
-        // Method To Fetch List of All Events
+        /// <summary>
+        /// Method To Fetch List of All Events
+        /// </summary>
+        /// <returns></returns>
         IEnumerable<Event> GetAllEvents();
 
-        // Method To Fetch List of All Events For a Particular Owner
+        /// <summary>
+        /// Method To Fetch List of All Events For a Particular Owner
+        /// </summary>
+        /// <param name="eventOwner"></param>
+        /// <returns></returns>
         IEnumerable<Event> GetEventsForOwner(string eventOwner);
 
-        // Method To Update An Event
+        /// <summary>
+        /// Method To Update An Event
+        /// </summary>
+        /// <param name="eventData"></param>
+        /// <returns></returns>
         bool UpdateEvent(Event eventData);
 
-        // Method To Delete An Event
+        /// <summary>
+        /// Method To Delete An Event
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <returns></returns>
         bool DeleteEvent(string eventId);
     }
 }
