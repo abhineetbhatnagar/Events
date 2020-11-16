@@ -1,0 +1,52 @@
+{
+  "Routes": [
+    // 1.) TENANCY
+    {
+      "DownstreamPathTemplate": "/api/{controller}/{version}/{method}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "tenancyapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/tenancy/{controller}/{version}/{method}",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    // 2.) MANAGER
+    {
+      "DownstreamPathTemplate": "/api/{controller}/{version}/{method}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "managerapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/manager/{controller}/{version}/{method}",
+      "UpstreamHttpMethod": [ "POST", "GET", "PUT", "DELETE" ]
+    },
+    // 3.) NOTIFICATIONS
+    {
+      "DownstreamPathTemplate": "/api/{controller}/{version}/{function}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "notificationsapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/notify/{controller}/{version}/{function}",
+      "UpstreamHttpMethod": [ "POST" ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5000",
+    "RateLimitOptions": {
+      "EnableRateLimiting": true,
+      "Period": "1s",
+      "PeriodTimespan": 1,
+      "Limit": 10
+    }
+  }
+}
