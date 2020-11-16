@@ -3,7 +3,8 @@
 ### Database 1.) Tenancy_Master
 
 **Collection** 
-Tenants
+* Tenants
+
 **Document** 
 {
     "Username": "YOUR_USERNAME",
@@ -16,10 +17,10 @@ Tenants
 ### Database 2.) Events_Master
 
 **Collection** 
-Events
-Participants
+* Events
+* Participants
 
 ### Database 3.) Notifications_Master
 
 **Collection** 
-Email_Notification
+* Email_Notification
