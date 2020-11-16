@@ -20,20 +20,13 @@ namespace Events.Tenancy.Services.Infra.DB.Service
             _participants = database.GetCollection<Participants>(settings.ParticipantsCollectionName);
         }
 
-        /// <summary>
-        /// Method To Add Participants To An Event
-        /// </summary>
-        /// <param name="participantsData"></param>
+        // Method To Add Participants To An Event
         public void AddParticipants(Participants participantsData) {
             _participants.InsertOne(participantsData);
 
         }
 
-        /// <summary>
-        /// Method to fetch all participants for an event
-        /// </summary>
-        /// <param name="eventId"></param>
-        /// <returns></returns>
+        // Method to fetch all participants for an event
         public IEnumerable<Participants> FetchParticipantsForEvent(string eventId)
         {
             return _participants.Find<Participants>(e => e.Event_Id == eventId).ToList();

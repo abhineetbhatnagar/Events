@@ -5,46 +5,23 @@ namespace Events.Manager.Services.Core
 {
     public interface IEventsService
     {
-        /// <summary>
-        /// Method To Create New Event
-        /// </summary>
-        /// <param name="eventData"></param>
-        /// <returns></returns>
+        // Method To Create New Event
         string CreateEvent(Event eventData);
 
-        /// <summary>
-        /// Method To Fetch Event By Its ID
-        /// </summary>
-        /// <param name="eventId"></param>
-        /// <returns></returns>
+        // Method To Fetch Event By Its ID
         Event GetEventById(string eventId);
                
 
-        /// <summary>
-        /// Method To Fetch List of All Events
-        /// </summary>
-        /// <returns></returns>
+        // Method To Fetch List of All Events
         IEnumerable<Event> GetAllEvents();
 
-        /// <summary>
-        /// Method To Fetch List of All Events For a Particular Owner
-        /// </summary>
-        /// <param name="eventOwner"></param>
-        /// <returns></returns>
+        // Method To Fetch List of All Events For a Particular Owner
         IEnumerable<Event> GetEventsForOwner(string eventOwner);
 
-        /// <summary>
-        /// Method To Update An Event
-        /// </summary>
-        /// <param name="eventData"></param>
-        /// <returns></returns>
+        // Method To Update An Event
         bool UpdateEvent(Event eventData);
 
-        /// <summary>
-        /// Method To Delete An Event
-        /// </summary>
-        /// <param name="eventId"></param>
-        /// <returns></returns>
+        // Method To Delete An Event
         bool DeleteEvent(string eventId);
     }
 }

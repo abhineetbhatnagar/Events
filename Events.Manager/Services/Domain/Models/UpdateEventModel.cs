@@ -14,16 +14,12 @@ namespace Events.Manager.Services.Domain.Models
         [BsonRepresentation(BsonType.ObjectId)]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide event id.")]
         public string _id { get; set; }
-
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide event name.")]
         public string Event_Name { get; set; }
-
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide event description.")]
         public string Event_Description { get; set; }
-
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide event venue.")]
         public string Event_Venue { get; set; }
-
         [Required(ErrorMessage = "Please provide event start date.")]
         public DateTime? Event_Start_Date { get; set; }
         public DateTime? Event_End_Date { get; set; }

@@ -10,10 +10,8 @@ namespace Events.Manager.Services.Domain.Entities
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string _id { get; set; }
-        
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide event id.")]
         public string Event_Id { get; set; }
-        
         [Required]
         public List<Participant> ParticipantsData { get; set; }
     }
@@ -22,7 +20,6 @@ namespace Events.Manager.Services.Domain.Entities
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide participant name.")]
         public string Name { get; set; }
-
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide participant email.")]
         [EmailAddress]
         public string Email { get; set; }

@@ -1,18 +1,10 @@
 namespace Events.Manager.Services.Infra.Encryption.Service{
     public interface IEncryptionService{
 
-        /// <summary>
-        /// Method to encrypt a plain string
-        /// </summary>
-        /// <param name="clearText"></param>
-        /// <returns></returns>
+        // Method to encrypt a plain string
         string Encrypt(string clearText);
 
-        /// <summary>
-        /// Method to decrypt an encrypted string
-        /// </summary>
-        /// <param name="clearText"></param>
-        /// <returns></returns>
+        // Method to decrypt an encrypted string
         string Decrypt(string cipherTextstring);
     }
 }

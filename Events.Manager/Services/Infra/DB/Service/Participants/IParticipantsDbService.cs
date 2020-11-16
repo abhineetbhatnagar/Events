@@ -6,17 +6,10 @@ namespace Events.Tenancy.Services.Infra.DB.Service
 {
     public interface IParticipantsDbService
     {
-        /// <summary>
-        /// Method To Add Participants To An Event
-        /// </summary>
-        /// <param name="participantsData"></param>
+        // Method To Add Participants To An Event
         void AddParticipants(Participants participantsData);
 
-        /// <summary>
-        /// Method to fetch all participants for an event
-        /// </summary>
-        /// <param name="eventId"></param>
-        /// <returns></returns>
+        // Method to fetch all participants for an event
         IEnumerable<Participants> FetchParticipantsForEvent(string eventId);
     }
 }

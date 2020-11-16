@@ -16,59 +16,36 @@ namespace Events.Tenancy.Services.Infra.DB.Service
             _events = database.GetCollection<Event>(settings.EventsCollectionName);
         }
 
-        /// <summary>
-        /// Method To Create New Event
-        /// </summary>
-        /// <param name="eventData"></param>
-        /// <returns></returns>
+        // Method To Create New Event
         public string CreateEvent(Event eventData)
         {
             _events.InsertOne(eventData);
             return eventData._id;
         }
 
-        /// <summary>
-        /// Method To Fetch Event By Its ID
-        /// </summary>
-        /// <param name="eventId"></param>
-        /// <returns></returns>
+        // Method To Fetch Event By Its ID
         public Event GetEventById(string eventId) {
             return _events.Find<Event>(e => e._id == eventId).FirstOrDefault();
         }
 
-        /// <summary>
-        /// Method To Fetch List of All Events
-        /// </summary>
-        /// <returns></returns>
+        // Method To Fetch List of All Events
         public IEnumerable<Event> GetAllEvents() {
             return _events.Find<Event>(f => true).ToList();
         }
 
-        /// <summary>
-        /// Method To Fetch List of All Events For a Particular Owner
-        /// </summary>
-        /// <param name="eventOwner"></param>
-        /// <returns></returns>
+        // Method To Fetch List of All Events For a Particular Owner
         public IEnumerable<Event> GetEventsForOwner(string eventOwner)
         {
             return _events.Find<Event>(e => e.Event_Owner == eventOwner).ToList();
         }
 
-        /// <summary>
-        /// Method To Update An Event
-        /// </summary>
-        /// <param name="eventData"></param>
-        /// <returns></returns>
+        // Method To Update An Event
         public bool UpdateEvent(Event eventData) {
             ReplaceOneResult updateResult = _events.ReplaceOne(filter: g => g._id == eventData._id, replacement: eventData);
             return updateResult.IsAcknowledged && updateResult.ModifiedCount > 0;
         }
 
-        /// <summary>
-        /// Method To Delete An Event
-        /// </summary>
-        /// <param name="eventId"></param>
-        /// <returns></returns>
+        // Method To Delete An Event
         public bool DeleteEvent(string eventId) {
             DeleteResult deleteResult = _events.DeleteOne(filter: g => g._id == eventId);
             return deleteResult.IsAcknowledged && deleteResult.DeletedCount > 0;
