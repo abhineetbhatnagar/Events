@@ -2,6 +2,7 @@
 using Events.Manager.Services.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Events.Manager.Controllers
 {

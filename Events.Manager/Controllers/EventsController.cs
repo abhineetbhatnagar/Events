@@ -34,6 +34,13 @@ namespace Events.Manager.Controllers
                 return Unauthorized();
             }
 
+            // Event end date should not be less than start date
+            if(InputModel.Event_End_Date != null){
+                if(InputModel.Event_End_Date < InputModel.Event_Start_Date){
+                    return BadRequest("End date can not be smaller than start date.");
+                }
+            }
+
             // Map values with event model
             Event objEvent = new Event();
             objEvent.Event_Name = InputModel.Event_Name;
@@ -99,6 +106,13 @@ namespace Events.Manager.Controllers
             if (tenant_id == null)
             {
                 return Unauthorized();
+            }
+
+            // Event end date should not be less than start date
+            if(InputModel.Event_End_Date != null){
+                if(InputModel.Event_End_Date < InputModel.Event_Start_Date){
+                    return BadRequest("End date can not be smaller than start date.");
+                }
             }
             // Map values with event model
             Event objEvent = new Event();
