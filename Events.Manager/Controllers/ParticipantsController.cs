@@ -7,6 +7,7 @@ namespace Events.Manager.Controllers
 {
     [Route("api/[controller]/v1")]
     [ApiController]
+    [Authorize]
     public class ParticipantsController : ControllerBase
     {
         private readonly IParticipantsService _participantsService;
