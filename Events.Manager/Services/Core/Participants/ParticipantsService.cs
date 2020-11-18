@@ -23,7 +23,7 @@ namespace Events.Manager.Services.Core
         {
             if(await _participantsDbService.AddParticipants(participantsData)){
                 foreach(var participant in participantsData.ParticipantsData){
-                    await _eventMessager.NotifyParticipant(new Notification{
+                    var response = _eventMessager.NotifyParticipant(new Notification{
                         Email = participant.Email,
                         Notification_Text = "You have been invited to attend an event. The event ID is: - ." + participantsData.Event_Id
                     });

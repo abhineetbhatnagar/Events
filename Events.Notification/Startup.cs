@@ -42,7 +42,7 @@ namespace Events.Notification
             services.AddSingleton<IEventMessagingConfig>(sp => sp.GetRequiredService<IOptions<EventMessagingConfig>>().Value);
             
             // Inject Notification DB Service
-            services.AddSingleton<IEmailNotificationsDbService, EmailNotificationsDbService>();
+            services.AddTransient<IEmailNotificationsDbService, EmailNotificationsDbService>();
 
             services.AddHostedService<EventConsumerService>();  
 

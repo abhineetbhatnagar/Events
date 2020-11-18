@@ -76,18 +76,18 @@ namespace Events.Manager
 
 
             // Inject Events & Participation Service Dependencies
-            services.AddSingleton<IEventsService, EventsService>();
-            services.AddSingleton<IParticipantsService, ParticipantsService>();
+            services.AddTransient<IEventsService, EventsService>();
+            services.AddTransient<IParticipantsService, ParticipantsService>();
             
             // Inject Events & Participation DB Service Dependencies
-            services.AddSingleton<IEventsDbService, EventsDbService>();
-            services.AddSingleton<IParticipantsDbService, ParticipantsDbService>();
+            services.AddTransient<IEventsDbService, EventsDbService>();
+            services.AddTransient<IParticipantsDbService, ParticipantsDbService>();
             
             // Inject Encryption Service
-            services.AddSingleton<IEncryptionService, EncryptionService>();
+            services.AddTransient<IEncryptionService, EncryptionService>();
 
             // Inject Messaging Service
-            services.AddSingleton<IEventMessagingService, EventMessagingService>();
+            services.AddTransient<IEventMessagingService, EventMessagingService>();
 
         }
 

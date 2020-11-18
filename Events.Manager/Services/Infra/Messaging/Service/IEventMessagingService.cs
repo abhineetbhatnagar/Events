@@ -5,6 +5,6 @@ namespace Events.Tenancy.Services.Infra.Messaging.Service{
         
         // Method for publishing a message on Event Bus
         // So that participants can be notified
-        Task NotifyParticipant(Notification notification);
+        Task<bool> NotifyParticipant(Notification notification);
     }
 }

@@ -75,10 +75,10 @@ namespace Events.Tenancy
             services.AddSingleton<IEncryptionConfig>(sp => sp.GetRequiredService<IOptions<EncryptionConfig>>().Value);
 
             // Inject Tenant, DB, Jwt & Encryption Service Dependencies
-            services.AddScoped<ITenantService, TenantService>();
-            services.AddScoped<ITenantDbService, TenantDbService>();
-            services.AddScoped<IJwtService, JwtService>();
-            services.AddScoped<IEncryptionService, EncryptionService>();
+            services.AddTransient<ITenantService, TenantService>();
+            services.AddTransient<ITenantDbService, TenantDbService>();
+            services.AddTransient<IJwtService, JwtService>();
+            services.AddTransient<IEncryptionService, EncryptionService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

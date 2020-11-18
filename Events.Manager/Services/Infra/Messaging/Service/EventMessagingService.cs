@@ -21,7 +21,7 @@ namespace Events.Tenancy.Services.Infra.Messaging.Service{
 
         // Method for publishing a message on Event Bus
         // So that participants can be notified
-        public async Task NotifyParticipant(Notification notification)
+        public async Task<bool> NotifyParticipant(Notification notification)
         {
             var factory = new ConnectionFactory() { HostName = _hostname, UserName = _username, Password = _password };
             using (var connection = factory.CreateConnection())
@@ -33,6 +33,7 @@ namespace Events.Tenancy.Services.Infra.Messaging.Service{
                 channel.BasicPublish(exchange: "", routingKey: _queueName, basicProperties: null, body: body);
                 await Task.Yield();
             }
+            return true;
         }
     }
 }
